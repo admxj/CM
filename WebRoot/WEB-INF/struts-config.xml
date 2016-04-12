@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<struts-config>
+	<form-beans>
+		<form-bean name="articleForm" type="com.struts.forms.ArticleForm" />
+		<form-bean name="articleTypeForm" type="com.struts.forms.ArticleTypeForm" />
+		<form-bean name="commentForm" type="com.struts.forms.CommentForm"></form-bean>
+	    <form-bean name="usersForm" type="com.struts.forms.UsersForm"></form-bean>
+	    <form-bean name="userTypeForm" type="com.struts.forms.UserTypeForm" />
+    
+	</form-beans>
+
+
+	<action-mappings>
+		<action
+	      attribute="articleForm"
+	      name="articleForm"
+	      parameter="operate"
+	      path="/article"
+	      scope="request"
+	      type="org.springframework.web.struts.DelegatingActionProxy"
+	       >
+	       <forward name="success" path="/index.jsp"></forward>
+	       <forward name="infor" path="/textInfo.jsp"></forward>
+	</action>
+    <action
+      attribute="articleTypeForm"
+      name="articleTypeForm"
+      parameter="operate"
+      path="/articleType"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy"
+       >
+      <forward name="success" path="/index.jsp"></forward>
+	</action>
+	
+	<action 
+		attribute="commentForm"
+		name="commentForm"
+		parameter="operate"
+		path="/comment"
+		scope="request"
+		type="org.springframework.web.struts.DelegatingActionProxy"
+		>
+		<forward name="success" path="/textInfo.jsp"></forward>
+		<forward name="addSuccess" path="/index.jsp"></forward>
+	</action>
+	<action
+	      attribute="usersForm"
+	      name="usersForm"
+	      parameter="operate"
+	      path="/users"
+	      scope="request"
+	      type="org.springframework.web.struts.DelegatingActionProxy"
+	       >
+		<forward name="success" path="/index.jsp"></forward>
+		<forward name="failure" path="/login.jsp"></forward>
+	</action>
+    <action
+      attribute="userTypeForm"
+      name="userTypeForm"
+      parameter="operate"
+      path="/userType"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy"
+       />
+    
+	</action-mappings>
+	
+	<plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+		<set-property value="classpath:applicationContext.xml" property="contextConfigLocation"/>
+	</plug-in>
+</struts-config>
