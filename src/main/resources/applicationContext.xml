@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+
+	<bean id="sessionFactory"
+		  class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation"
+				  value="classpath:hibernate.cfg.xml">
+		</property>
+	</bean>
+	<!-- 接管DAO -->
+	<bean id="iArticleDAO" class="com.dao.ArticleDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="iArticleTypeDAO" class="com.dao.ArticleTypeDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="iCommentDAO" class="com.dao.CommentDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="iUsersDAO" class="com.dao.UsersDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="iUserTypeDAO" class="com.dao.UserTypeDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- 接管Struts -->
+	<bean name="/article" class="com.struts.actions.ArticleAction">
+		<property name="iArticleDAO" ref="iArticleDAO"></property>
+	</bean>
+	<bean name="/articleType" class="com.struts.actions.ArticleTypeAction">
+		<property name="iArticleTypeDAO" ref="iArticleTypeDAO"></property>
+	</bean>
+	<bean name="/comment" class="com.struts.actions.CommentAction">
+		<property name="iCommentDAO" ref="iCommentDAO"></property>
+	</bean>
+	<bean name="/users" class="com.struts.actions.UsersAction">
+		<property name="iUsersDAO" ref="iUsersDAO"></property>
+	</bean>
+	<bean name="/userType" class="com.struts.actions.UserTypeAction">
+		<property name="iUserTypeDAO" ref="iUserTypeDAO"></property>
+	</bean>
+</beans>
